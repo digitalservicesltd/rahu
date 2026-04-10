@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig(async () => {
@@ -10,5 +11,13 @@ export default defineConfig(async () => {
     const m = await import('./.vite-source-tags.js');
     plugins.push(m.sourceTags());
   } catch {}
-  return { plugins, base: '/rahu/' };
+  return {
+    plugins,
+    base: '/rahu/',
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+  };
 })
